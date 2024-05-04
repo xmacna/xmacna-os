@@ -40,7 +40,7 @@ jobs:
         env:
           skip_deploy_on_missing_secrets: true        
           PRE_BUILD_COMMAND: npm install -g pnpm
-          CUSTOM_BUILD_COMMAND: pnpm install && pnpm run build --preset=azure
+          CUSTOM_BUILD_COMMAND: pnpm install --no-frozen-lockfile && pnpm run build --preset=azure 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
