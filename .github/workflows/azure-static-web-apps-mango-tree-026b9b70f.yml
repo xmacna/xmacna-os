@@ -20,6 +20,8 @@ jobs:
       SITE_URL: ${{ secrets.SITE_URL }}
       COREPACK_ENABLE_STRICT: '0'
       VERBOSE: true
+      PNPM_VERSION: 8.6.0
+      NODE_VERSION: 18.19.0
     steps:
       - uses: actions/checkout@v3
         with:
@@ -30,14 +32,11 @@ jobs:
         uses: pnpm/action-setup@v3
         with:
           version: ${{ env.PNPM_VERSION }}
+
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Install
-        run: pnpm install --no-frozen-lockfile
-        env:
-          VERBOSE: true
 
       - name: Deploy
         id: builddeploy
@@ -54,6 +53,8 @@ jobs:
           output_location: '.output/public'
           ###### End of Repository/Build Configurations ######
         env:
+          PRE_BUILD_COMMAND: pnpm install --no-frozen-lockfile
+          CUSTOM_BUILD_COMMAND: pnpm run build --preset=azure
           skip_deploy_on_missing_secrets: true
           VERBOSE: true
   close_pull_request_job:
