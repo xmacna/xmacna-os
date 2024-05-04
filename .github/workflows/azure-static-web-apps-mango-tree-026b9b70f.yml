@@ -35,10 +35,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install
-        run: |
-          # force a development install, to make sure dev dependencies are installed
-          # they get filtered out by the standalone build for next
-          NODE_ENV=development pnpm install
+        run: pnpm install
         env:
           VERBOSE: true
 
