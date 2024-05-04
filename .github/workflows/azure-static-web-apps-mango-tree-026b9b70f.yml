@@ -35,12 +35,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install
-        run: pnpm install
-        env:
-          VERBOSE: true
-
-      - name: Build
-        run: pnpm run build --preset=azure
+        run: pnpm install --no-frozen-lockfile
         env:
           VERBOSE: true
 
@@ -53,15 +48,12 @@ jobs:
           action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          skip_app_build: true
+          skip_api_build: true
           app_location: '/'
           api_location: '.output/server'
           output_location: '.output/public'
           ###### End of Repository/Build Configurations ######
         env:
-          PRE_BUILD_COMMAND: npm install -g pnpm
-          CUSTOM_BUILD_COMMAND: pnpm install --no-frozen-lockfile && pnpm run build --preset=azure
-
           skip_deploy_on_missing_secrets: true
           VERBOSE: true
   close_pull_request_job:
