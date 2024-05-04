@@ -18,14 +18,14 @@ jobs:
       DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
       DIRECTUS_SERVER_TOKEN: ${{ secrets.DIRECTUS_SERVER_TOKEN }}
       SITE_URL: ${{ secrets.SITE_URL }}
-      COREPACK_ENABLE_STRICT: "0"
+      COREPACK_ENABLE_STRICT: '0'
       VERBOSE: true
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
-          
+
       - name: Use pnpm ${{ env.PNPM_VERSION }}
         uses: pnpm/action-setup@v3
         with:
@@ -50,20 +50,20 @@ jobs:
       - name: Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
-        with:          
+        with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_TREE_026B9B70F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: "upload"
+          action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig             
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           skip_app_build: true
           skip_api_build: true
-          app_location: '.output'
+          app_location: '.output/public'
           api_location: '.output/server'
-          output_location : 'public'
+          output_location: ''
           ###### End of Repository/Build Configurations ######
         env:
-          skip_deploy_on_missing_secrets: true        
+          skip_deploy_on_missing_secrets: true
           VERBOSE: true
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -75,4 +75,4 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_TREE_026B9B70F }}
-          action: "close"
+          action: 'close'
