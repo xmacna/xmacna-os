@@ -80,7 +80,7 @@ function loadMore() {
 						size="xl"
 						@click="loadMore"
 					>
-						Load More
+						Carregar maios
 					</UButton>
 				</div>
 			</div>

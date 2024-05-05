@@ -94,8 +94,8 @@ const { data: form } = await useAsyncData(
 				</div>
 
 				<div v-if="form" class="relative">
-					<TypographyHeadline :content="`<p>Subscribe to our <em>newsletter</em></p>`" size="sm">
-						Subscribe to our newsletter
+					<TypographyHeadline :content="`<p>Receba nossas <em>novidades</em></p>`" size="sm">
+						Receba nossas novidades
 					</TypographyHeadline>
 					<UForm class="mt-4 mb-8" :form="form" />
 				</div>
@@ -118,9 +118,9 @@ const { data: form } = await useAsyncData(
 			</div>
 			<div class="mt-8 md:mt-0 md:order-1">
 				<span class="mt-2 text-gray-600 dark:text-gray-400">
-					Copyright © 1988 - {{ new Date().getFullYear() }}
+					Copyright © 2023 - {{ new Date().getFullYear() }}
 					<NuxtLink href="/" class="mx-2 hover:text-primary" rel="noopener noreferrer">{{ globals.title }}.</NuxtLink>
-					All rights reserved.
+					Todos os direitos reservados.
 				</span>
 				<!-- You're free to remove this footer if you want. But we'd appreciate it if you keep the credits. -->
 				<span class="block mt-2 text-gray-600 dark:text-gray-400">

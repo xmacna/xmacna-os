@@ -65,8 +65,8 @@ const {
 		</div>
 
 		<div class="hidden h-full gap-4 md:flex">
-			<UButton to="/contact-us" color="primary" size="xl">Let's Talk</UButton>
-			<UButton to="/portal" color="primary" variant="ghost" size="xl">Login</UButton>
+			<UButton to="/contact-us" color="primary" size="xl">Vamos Conversar</UButton>
+			<UButton to="/portal" color="primary" variant="ghost" size="xl">Portal</UButton>
 		</div>
 		<NavigationMobileMenu v-if="navigation" :navigation="navigation" />
 	</header>
