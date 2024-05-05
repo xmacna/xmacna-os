@@ -89,9 +89,9 @@ function destructureDate(date: string): Record<string, number | string> {
 
 function greetUser(): string {
 	const hour = new Date().getHours();
-	if (hour < 12) return 'Good Morning';
-	if (hour < 18) return 'Good Afternoon';
-	return 'Good Evening';
+	if (hour < 12) return 'Bom Dia';
+	if (hour < 18) return 'Boa Tarde';
+	return 'Boa Noite';
 }
 
 function subtractDates(date1: string | number | Date, date2: string | number | Date, unit?: string): number {

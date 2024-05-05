@@ -77,7 +77,7 @@ export default defineComponent({
 				h(Button, {
 					type: 'submit',
 					size: 'lg',
-					label: 'Submit',
+					label: 'Enviar',
 					onClick: (event: Event) => {
 						event.preventDefault();
 						// @ts-ignore

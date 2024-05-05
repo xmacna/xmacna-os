@@ -23,7 +23,7 @@
 					placeholder="voce@suaempresa.com.br"
 				/>
 			</UFormGroup>
-			<UFormGroup label="Password" required>
+			<UFormGroup label="Senha" required>
 				<UInput
 					v-model="credentials.password"
 					type="password"
@@ -39,7 +39,7 @@
 				:loading="loading"
 				:disabled="!credentials.email"
 				size="lg"
-				label="Sign In"
+				label="Login"
 				trailing-icon="material-symbols:arrow-forward"
 				block
 			/>
