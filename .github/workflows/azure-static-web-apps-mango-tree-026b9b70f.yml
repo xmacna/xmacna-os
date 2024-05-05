@@ -28,11 +28,6 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Use pnpm ${{ env.PNPM_VERSION }}
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
@@ -53,7 +48,7 @@ jobs:
           output_location: '.output/public'
           ###### End of Repository/Build Configurations ######
         env:
-          PRE_BUILD_COMMAND: npm install pnpm -g && pnpm install --no-frozen-lockfile
+          PRE_BUILD_COMMAND: npm install pnpm@${{ env.PNPM_VERSION }} -g && pnpm install --no-frozen-lockfile
           CUSTOM_BUILD_COMMAND: pnpm run build --preset=azure
           skip_deploy_on_missing_secrets: true
           VERBOSE: true
