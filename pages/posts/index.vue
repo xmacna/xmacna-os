@@ -110,18 +110,18 @@ useServerSeoMeta({
 				class="relative grid w-full gap-12 pb-12 border-b-2 border-gray-300 md:grid-cols-2 lg:grid-cols-4 dark:border-gray-700"
 			>
 				<div>
-					<TypographyTitle class="text-gray-700 dark:text-gray-400">Search</TypographyTitle>
+					<TypographyTitle class="text-gray-700 dark:text-gray-400">Pesquisar</TypographyTitle>
 					<GlobalSearch :collections="['posts']" class="flex" />
-					<TypographyTitle class="mt-8 text-gray-700 dark:text-gray-400">Categories</TypographyTitle>
+					<TypographyTitle class="mt-8 text-gray-700 dark:text-gray-400">Categorias</TypographyTitle>
 					<Categories class="" />
 				</div>
 				<div class="space-y-4 lg:col-span-3">
-					<TypographyTitle>Featured Article</TypographyTitle>
+					<TypographyTitle>Artigo em destaque</TypographyTitle>
 					<PostCard :post="page?.featured_post" direction="horizontal" />
 				</div>
 			</div>
 			<div class="space-y-4">
-				<TypographyTitle>Latest & Greatest</TypographyTitle>
+				<TypographyTitle>Melhores e mais recentes</TypographyTitle>
 				<div class="relative grid gap-8 md:gap-12 md:grid-cols-3 lg:grid-cols-6">
 					<PostCard
 						v-for="(post, postIdx) in posts"
