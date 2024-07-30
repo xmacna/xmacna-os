@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     env:
-      DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+      DIRECTUS_URL: ${{ secrets.REDIGIR_DIRECTUS_URL }}
       DIRECTUS_SERVER_TOKEN: ${{ secrets.DIRECTUS_SERVER_TOKEN }}
-      SITE_URL: 'https://orange-smoke-03a26e10f.5.azurestaticapps.net'
-      NO_NUXT_PUBLIC_SITE_URL: 'https://orange-smoke-03a26e10f.5.azurestaticapps.net'
+      SITE_URL: ${{ secrets.REDIGIR_FRONT_URL }}
+      NO_NUXT_PUBLIC_SITE_URL: ${{ secrets.REDIGIR_FRONT_URL }}
       COREPACK_ENABLE_STRICT: '0'
       VERBOSE: true
       PNPM_VERSION: 8.6.2
