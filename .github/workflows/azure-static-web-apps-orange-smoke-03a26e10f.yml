@@ -21,7 +21,7 @@ jobs:
       NO_NUXT_PUBLIC_SITE_URL: 'https://orange-smoke-03a26e10f.5.azurestaticapps.net'
       COREPACK_ENABLE_STRICT: '0'
       VERBOSE: true
-      PNPM_VERSION: 8.6.0
+      PNPM_VERSION: 8.6.2
       NODE_VERSION: 18.19.0
     steps:
       - uses: actions/checkout@v3
