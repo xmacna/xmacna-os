@@ -7,6 +7,7 @@ export default defineNuxtConfig({
 	routeRules: {
 		'/auth/**': { ssr: false },
 		'/portal/**': { ssr: false, index: false },
+		'/olympus/**': { ssr: false, index: false},
 	},
 
 	runtimeConfig: {
