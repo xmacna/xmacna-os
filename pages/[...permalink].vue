@@ -45,7 +45,7 @@ const { data: page } = await useAsyncData(
 										'headline',
 										'content',
 										'image',
-										'buttons',
+										//'buttons',
 										'image_position',
 										{ button_group: ['*', { buttons: ['*', { page: ['permalink'], post: ['slug'] }] }] },
 									],
@@ -77,7 +77,7 @@ const { data: page } = await useAsyncData(
 										'title',
 										'headline',
 										'content',
-										'buttons',
+										//'buttons',
 										{
 											button_group: [
 												'*',
