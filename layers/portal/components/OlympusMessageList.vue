@@ -10,7 +10,7 @@ export interface OlympusMessageListProps {
 const props = defineProps<OlympusMessageListProps>();
 
 const { fileUrl } = useFiles();
-
+const olympusBaseUrl =  process.env.OLYMPUS_URL || 'http://localhost:8080'
 
 
 const {
@@ -19,12 +19,13 @@ const {
 	error,
 } = await useAsyncData(`client-${props.clientId}-chat-${props.chatId}-`,async () => {
 	const nuxtApp = useNuxtApp();
+	const runtimeConfig = useRuntimeConfig()
 	const $directus = nuxtApp.$directus as RestClient<Schema> & AuthenticationClient<Schema>;
 	const headers ={
 		authorization:`bearer ${await $directus.getToken()}`
 			}
 
-	return await $fetch(`http://localhost:8080/api/clients/${props.clientId}/chat/${props.chatId}/messages`,
+	return await $fetch(`${olympusBaseUrl}/api/clients/${props.clientId}/chat/${props.chatId}/messages`,
 		{
 			headers:headers
 		}

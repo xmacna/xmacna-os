@@ -1,4 +1,5 @@
 // import { formatFonts } from './utils/fonts';
+import Olympus from './layers/portal/pages/olympus.vue';
 import { theme } from './theme';
 
 export default defineNuxtConfig({
@@ -54,6 +55,7 @@ export default defineNuxtConfig({
 		rest: {
 			baseUrl: process.env.DIRECTUS_URL,
 			nuxtBaseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+			
 		},
 		auth: {
 			enabled: true,
