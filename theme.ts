@@ -14,8 +14,8 @@ export interface Theme {
 }
 
 export const theme = {
-	primary: 'violet',
-	gray: 'slate',
+	primary: 'red',
+	gray: 'zinc',
 	borderRadius: 'lg',
 	googleFonts: {
 		Inter: true,
