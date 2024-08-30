@@ -33,7 +33,7 @@ const sidebarNavigation = {
 	top: [
 		//{ name: 'Search', click: () => (showCommandPalette.value = true), icon: 'material-symbols:search-rounded' },
 		{ name: 'Dashboard', href: `/olympus/${params.identificador}`, icon: 'material-symbols:home-outline-rounded' },
-		{ name: 'Chats', href: `/olympus/chats/${params.identificador}`, icon: 'material-symbols:tab-group-outline-rounded' }
+		{ name: 'Chats', href: `/olympus/${params.identificador}/chats`, icon: 'material-symbols:tab-group-outline-rounded' }
 		
 	],
 	bottom: [{ name: 'Help', href: `/olympus/help/${params.identificador}`, icon: 'material-symbols:help-outline-rounded' }],

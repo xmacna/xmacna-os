@@ -2,12 +2,11 @@
 import type { RestClient, AuthenticationClient } from '@directus/sdk';
 import type { Schema } from '~/types/schema';
 
-export interface OlympusMessageListProps {
-	identificador: string;
-	chatId: string;
+export interface OlympusChatListProps {
+	identificador: string;	
 }
 
-const props = defineProps<OlympusMessageListProps>();
+const props = defineProps<OlympusChatListProps>();
 
 const { fileUrl } = useFiles();
 const olympusBaseUrl =  process.env.OLYMPUS_URL || 'http://localhost:8080'
@@ -17,7 +16,7 @@ const {
 	data: conversations,
 	pending,
 	error,
-} = await useAsyncData(`clients-${props.identificador}-chats-${props.chatId}-`,async () => {
+} = await useAsyncData(`clients-${props.identificador}-chats`,async () => {
 	const nuxtApp = useNuxtApp();
 	const runtimeConfig = useRuntimeConfig()
 	const $directus = nuxtApp.$directus as RestClient<Schema> & AuthenticationClient<Schema>;
@@ -25,7 +24,7 @@ const {
 		authorization:`bearer ${await $directus.getToken()}`
 			}
 
-	return await $fetch(`${olympusBaseUrl}/api/clients/${props.identificador}/chats/${props.chatId}/messages`,
+	return await $fetch(`${olympusBaseUrl}/api/clients/${props.identificador}/chats`,
 		{
 			headers:headers
 		}
@@ -36,12 +35,12 @@ const {
 
 const columns = [
 	{
-		key: 'userName',
-		label: 'Usuário',
+		key: 'name',
+		label: 'Nome',
 	},
 	{
-		key: 'text',
-		label: 'Texto',
+		key: 'description',
+		label: 'Descrição',
 	},
 	
 ];
@@ -50,28 +49,18 @@ const selectedConversationId = ref<string | null>(null);
 
 
 
-async function upsertMessage(messageId: string | null = null) {
-	const message = {
-		text: newMessage.text,
-		conversation: selectedConversationId.value,
-	};
 
-	if (messageId) {
-		await useDirectus(updateItem('messages', messageId, message));
-	} else {
-		// Create
-		await useDirectus(createItem('messages', message));
-	}
-
-	messages.value.push(message);
-	newMessage.text = '';
-}
 
 const messages = ref<any[]>([]);
 
 const newMessage = reactive({
 	text: '',
 });
+
+function openChat(chatId: string) {
+	selectedConversationId.value = chatId;
+	
+}
 
 function isCurrentUser(message: any) {
 	return false;
@@ -110,7 +99,7 @@ const selectedStatus = ref<string | null>('open');
 							'bg-primary-50 dark:bg-primary-900': selectedConversationId === row.id,
 						}"
 					>
-						
+						<UButton variant="link" :to="`chats/${row.id}`">{{ row.name }}</UButton>
 					</div>
 				</template>
 				<template #status-data="{ row }">
