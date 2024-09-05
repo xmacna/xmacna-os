@@ -27,7 +27,7 @@ useHead({
 				.join('\n')}`,
 		},
 	],
-	script:[
+	/*script:[
 		{ innerHTML: `!function(f,b,e,v,n,t,s)
 				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -40,15 +40,15 @@ useHead({
 				fbq('track', 'PageView');
 				`
 		}
-	],
-	noscript:[
+	],*/
+	/*noscript:[
 		{children:`<img height="1" width="1" style="display:none"
 		src="https://www.facebook.com/tr?id=939506908180273&ev=PageView&noscript=1"
 		/>`,
 		
  },
 		
-	]
+	]*/
 
 	
 });

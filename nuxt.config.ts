@@ -3,7 +3,16 @@ import { theme } from './theme';
 
 export default defineNuxtConfig({
 	// https://nuxt.com/docs/api/configuration/nuxt-config
+	/*app:{
+		head:{
 
+			noscript:[ 
+				{ children: '<img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=939506908180273&ev=PageView&noscript=1"/>'},
+				{ children: 'blablabla'}
+
+			]
+		}
+	},*/
 	routeRules: {
 		// '/**': {
 		// 	prerender: true,
@@ -34,6 +43,7 @@ export default defineNuxtConfig({
 		'@vueuse/motion/nuxt', // https://motion.vueuse.org/nuxt.html
 		'@vueuse/nuxt', // https://vueuse.org/
 		'@nuxt/icon', // https://github.com/nuxt-modules/icon
+		'nuxt-meta-pixel',
 	],
 
 	experimental: {
@@ -44,6 +54,9 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+			metapixel: {
+				default: { id: '939506908180273' },				
+			  }
 		},
 	},
 
