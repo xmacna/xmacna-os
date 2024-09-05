@@ -50,6 +50,9 @@ importers:
       nuxt:
         specifier: ^3.12.4
         version: 3.12.4(@parcel/watcher@2.4.1)(@types/node@22.0.0)(eslint@8.56.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.19.1)(terser@5.31.3)(typescript@5.5.4)(vite@5.3.5(@types/node@22.0.0)(terser@5.31.3))(vue-tsc@2.0.29(typescript@5.5.4))
+      nuxt-meta-pixel:
+        specifier: ^2.0.2
+        version: 2.0.2(magicast@0.3.4)(rollup@4.19.1)
       stripe:
         specifier: ^16.5.0
         version: 16.5.0
@@ -3623,6 +3626,9 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
+  meta-pixel@1.1.0:
+    resolution: {integrity: sha512-HvJpqad0uExXFZLKR5TYZ7aHjP/aZ10h/EXvTovUd3cBevSsotTsUZiMj8AhXcu5EeMV28thvBFvYu//78mrcw==}
+
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
     engines: {node: '>= 0.6'}
@@ -3934,6 +3940,9 @@ packages:
 
   nuxt-link-checker@3.1.0:
     resolution: {integrity: sha512-Au2ymyvdyK1vNFzE/LdgnjkhhTxjP7iaL9TL/Bsh7DwBbEjdo0+MrqYHULXs54MfCa1daafxMacvsLzOQqC1xQ==}
+
+  nuxt-meta-pixel@2.0.2:
+    resolution: {integrity: sha512-3tCB0uEfhVwfyiwaBp09mgKbT2U+oVGTRtKxaOPL3QQqEhO2l2RTT8uzVObSt9rg4/B+3v/vg2S2I9Ru1RL44Q==}
 
   nuxt-og-image@3.0.0-rc.64:
     resolution: {integrity: sha512-kkcZRwvobGYp1Ul2FizICEgskZ1KxFxL86Yb6SMHncZZeDzHxc/6hbkV/uKWE/Hh7igewBLL5jp1pm4Yf8t0fA==}
@@ -9654,6 +9663,8 @@ snapshots:
 
   merge2@1.4.1: {}
 
+  meta-pixel@1.1.0: {}
+
   methods@1.1.2: {}
 
   micromark-core-commonmark@2.0.1:
@@ -10122,6 +10133,17 @@ snapshots:
       - supports-color
       - vite
       - vue
+
+  nuxt-meta-pixel@2.0.2(magicast@0.3.4)(rollup@4.19.1):
+    dependencies:
+      '@nuxt/kit': 3.12.4(magicast@0.3.4)(rollup@4.19.1)
+      defu: 6.1.4
+      meta-pixel: 1.1.0
+      minimatch: 9.0.5
+    transitivePeerDependencies:
+      - magicast
+      - rollup
+      - supports-color
 
   nuxt-og-image@3.0.0-rc.64(magicast@0.3.4)(rollup@4.19.1)(vite@5.3.5(@types/node@22.0.0)(terser@5.31.3))(vue@3.4.34(typescript@5.5.4)):
     dependencies:

@@ -24,17 +24,15 @@ export default defineNuxtConfig({
 
 	css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
 
-	modules: [
-		'@nuxt/image',
-		'@nuxt/ui', // https://ui.nuxt.com
-		'@nuxtjs/color-mode', // https://color-mode.nuxtjs.org
-		'@nuxtjs/google-fonts', // https://google-fonts.nuxtjs.org
-		'@nuxtjs/seo', // https://nuxtseo.com
-		'@formkit/auto-animate/nuxt',
-		'@vueuse/motion/nuxt', // https://motion.vueuse.org/nuxt.html
-		'@vueuse/nuxt', // https://vueuse.org/
-		'@nuxt/icon', // https://github.com/nuxt-modules/icon
-	],
+	modules: ['@nuxt/image', // https://ui.nuxt.com
+    '@nuxt/ui', // https://color-mode.nuxtjs.org
+    '@nuxtjs/color-mode', // https://google-fonts.nuxtjs.org
+    '@nuxtjs/google-fonts', // https://nuxtseo.com
+    '@nuxtjs/seo', '@formkit/auto-animate/nuxt', // https://motion.vueuse.org/nuxt.html
+    '@vueuse/motion/nuxt', // https://vueuse.org/
+    '@vueuse/nuxt', // https://github.com/nuxt-modules/icon
+    '@nuxt/icon', 
+	"nuxt-meta-pixel"],
 
 	experimental: {
 		componentIslands: true,
@@ -44,6 +42,10 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+			metapixel: {
+				default: { id: '939506908180273'},
+				
+			  }
 		},
 	},
 
