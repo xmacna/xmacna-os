@@ -35,6 +35,7 @@ const sidebarNavigation = {
 		{ name: 'Files', href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
 		{ name: 'Billing', href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
 		{ name: 'Account', href: '/portal/account', icon: 'material-symbols:account-circle-outline' },
+		{ name: 'Pagamentos', href: '/portal/pagamentos', icon: 'material-symbols:attach-money-rounded' },
 	],
 	bottom: [{ name: 'Help', href: '/portal/help', icon: 'material-symbols:help-outline-rounded' }],
 };
