@@ -32,9 +32,10 @@ const sidebarNavigation = {
 		{ name: 'Search', click: () => (showCommandPalette.value = true), icon: 'material-symbols:search-rounded' },
 		{ name: 'Dashboard', href: '/portal', icon: 'material-symbols:home-outline-rounded' },
 		{ name: 'Projects', href: '/portal/projects', icon: 'material-symbols:tab-group-outline-rounded' },
-		{ name: 'Files', href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
-		{ name: 'Billing', href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
-		{ name: 'Account', href: '/portal/account', icon: 'material-symbols:account-circle-outline' },
+		//{ name: 'Files', href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
+		//{ name: 'Billing', href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
+		//{ name: 'Account', href: '/portal/account', icon: 'material-symbols:account-circle-outline' },
+		{ name: 'FD', href: '/portal/fd', icon: 'material-symbols:folder-outline-rounded' },
 	],
 	bottom: [{ name: 'Help', href: '/portal/help', icon: 'material-symbols:help-outline-rounded' }],
 };
