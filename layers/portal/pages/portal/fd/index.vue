@@ -66,7 +66,10 @@
         <button @click="setTemplateStep(2)" class="mb-4 flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">
           Voltar
         </button>
-        <h2 class="text-lg font-bold">Possuí site?</h2>
+        <div ref="tagsContainer" class="tags-container"></div>
+        <!-- Preencher com as tags geradas a partir do template selecionado -->
+
+        <!-- <h2 class="text-lg font-bold">Possuí site?</h2>
         <div class="flex space-x-4">
           <button @click="hasWebsite = true" class="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600">Possuo site</button>
           <button @click="setTemplateStep(4)" class="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600">Não possuo site</button>
@@ -74,7 +77,7 @@
         <div v-if="hasWebsite" class="mt-4">
           <input type="text" v-model="websiteUrl" placeholder="Digite o URL do seu site" class="relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0 form-input rounded-lg placeholder-gray-400 dark:placeholder-gray-500 text-sm px-3.5 py-2.5 shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400" />
           <button @click="setTemplateStep(4)" class="mt-2 bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600">Confirmar</button>
-        </div>
+        </div> -->
       </div>
 
       <!-- Preencher informações para briefing -->
@@ -293,11 +296,9 @@ export default {
       specificKnowledge: '',
       restrictions: '',
       additionalInfo: '',
-      templates: [
-        { name: 'Vendedor Digital [Recomendado]', description: 'Eu sou o Hermes, Funcionário Digital especialista em vendas. Trago a eloquência e o carisma do mítico mensageiro para o mundo digital. Com minhas habilidades de ler, ouvir e falar, estou sempre pronto para engajar e transformar cada interação em uma oportunidade de negócio. Disponível 24h, sou a solução ideal para otimizar suas vendas e encantar seus clientes com um atendimento repleto de inteligência.', disabled: false },
-        { name: 'Copiloto', description: 'Eu sou o Hermes, Funcionário Digital especialista em vendas. Trago a eloquência e o carisma do mítico mensageiro para o mundo digital. Com minhas habilidades de ler, ouvir e falar, estou sempre pronto para engajar e transformar cada interação em uma oportunidade de negócio. Disponível 24h, sou a solução ideal para otimizar suas vendas e encantar seus clientes com um atendimento repleto de inteligência.', disabled: true },
-        { name: 'Assistente', description: 'Eu sou o Hermes, Funcionário Digital especialista em vendas. Trago a eloquência e o carisma do mítico mensageiro para o mundo digital. Com minhas habilidades de ler, ouvir e falar, estou sempre pronto para engajar e transformar cada interação em uma oportunidade de negócio. Disponível 24h, sou a solução ideal para otimizar suas vendas e encantar seus clientes com um atendimento repleto de inteligência.', disabled: true }
-      ]
+      selectedTemplate: '',
+      templates: [],
+      artefacts: []
     };
   },
   methods: {
@@ -312,30 +313,33 @@ export default {
       this.templateStep = 1;
 
       try {
-        const directus = useDirectus();
-        const response = await directus.items('BoCliente').readByQuery({
-          filter: {
-            phone: {
-              _eq: this.whatsapp
-            }
-          }
-        });
-
-        if (response.data.length === 0) {
-          this.errorMessage = 'Nenhum cliente encontrado com este número de WhatsApp.';
-        } else {
-          // Handle the case where the client is found
-          console.log('Cliente encontrado:', response.data[0]);
-          this.currentStep++;
-        }
+        //TODO: Verificar se o cliente já existe
       } catch (error) {
         console.error('Erro ao buscar cliente:', error);
         this.errorMessage = 'Ocorreu um erro ao buscar o cliente. Tente novamente mais tarde.';
       }
     },
-    confirmUserInfo() {
+    async confirmUserInfo() {
       // Logic to confirm user information and proceed to the next step
       this.templateStep = 2; // Start the template selection step
+
+      try {
+        const response = await useDirectus(readItems('bo_bot_template'));
+
+        console.log('templates', response);
+
+        this.templates = response.map((template) => ({
+          name: template.titulo,
+          description: template.caracteristicas,
+          disabled: template.status !== 'published',
+          id: template.id
+        }));
+
+        
+      } catch (error) {
+        console.error('Erro ao buscar templates:', error);
+        this.errorMessage = 'Ocorreu um erro ao buscar os templates. Tente novamente mais tarde.';
+      } 
     },
     setCurrStep(step) {
       this.currentStep = step;
@@ -343,10 +347,147 @@ export default {
     setTemplateStep(step) {
       this.templateStep = step;
     },
-    selectTemplate(template) {
-      if (!template.disabled) {
-        console.log('Template selecionado:', template);
-        this.templateStep = 3; // Move to the next step after selecting a template
+    generateArtefactHTML() {
+      const artefactContainer = document.createElement('div');
+      artefactContainer.classList.add('artefact-container');
+
+      console.log('artefacts', this.artefacts);
+      this.artefacts.forEach(artefact => {
+        const artefactElement = document.createElement('div');
+        artefactElement.classList.add('artefact-item', 'mb-4', 'p-4', 'border', 'rounded-lg', 'shadow-sm', 'dark:border-gray-700', 'dark:bg-gray-800');
+
+        const label = document.createElement('label');
+        label.classList.add('block', 'font-medium', 'text-gray-700', 'dark:text-gray-200');
+        label.textContent = artefact.label;
+        artefactElement.appendChild(label);
+
+        let inputElement;
+        switch(artefact.tipo) {
+          case 'text':
+            let element = artefact.tipo_text === 'textarea' ? 'textarea' : 'input';
+            inputElement = document.createElement(element);
+
+            inputElement.placeholder = artefact.placeholder;
+            inputElement.classList.add('relative', 'block', 'w-full', 'disabled:cursor-not-allowed', 'disabled:opacity-75', 'focus:outline-none', 'border-0', 'form-input', 'rounded-lg', 'placeholder-gray-400', 'dark:placeholder-gray-500', 'text-sm', 'px-3.5', 'py-2.5', 'shadow-sm', 'bg-white', 'dark:bg-gray-900', 'text-gray-900', 'dark:text-white', 'ring-1', 'ring-inset', 'ring-gray-300', 'dark:ring-gray-700', 'focus:ring-2', 'focus:ring-primary-500', 'dark:focus:ring-primary-400');
+            break;
+          case 'slider':
+            inputElement = document.createElement('input');
+            inputElement.type = 'range';
+            inputElement.min = artefact.slider_valor_minimo;
+            inputElement.max = artefact.slider_valor_maximo;
+            inputElement.classList.add('w-full');
+
+            const valueDisplay = document.createElement('div');
+            valueDisplay.classList.add('flex', 'justify-between', 'text-sm', 'text-gray-500', 'dark:text-gray-400');
+            
+            const minValue = document.createElement('span');
+            minValue.textContent = artefact.slider_valor_minimo;
+            valueDisplay.appendChild(minValue);
+            
+            const maxValue = document.createElement('span');
+            maxValue.textContent = artefact.slider_valor_maximo;
+            valueDisplay.appendChild(maxValue);
+            
+            artefactElement.appendChild(valueDisplay);
+            break;
+          case 'options':
+            switch (artefact.tipo_options) {
+              case 'checkbox':
+                inputElement = document.createElement('div');
+                artefact.opcoes_enum.forEach(option => {
+                  const checkboxWrapper = document.createElement('div');
+                  const checkbox = document.createElement('input');
+                  checkbox.type = 'checkbox';
+                  checkbox.value = option;
+                  checkbox.id = `checkbox-${option}`;
+                  
+                  const label = document.createElement('label');
+                  label.htmlFor = `checkbox-${option}`;
+                  label.textContent = option;
+                  
+                  checkboxWrapper.appendChild(checkbox);
+                  checkboxWrapper.appendChild(label);
+                  inputElement.appendChild(checkboxWrapper);
+                });
+                break;
+              case 'radio':
+                inputElement = document.createElement('div');
+                artefact.opcoes_enum.forEach(option => {
+                  const radioWrapper = document.createElement('div');
+                  const radio = document.createElement('input');
+                  radio.type = 'radio';
+                  radio.name = 'radio-options';
+                  radio.value = option;
+                  radio.id = `radio-${option}`;
+                  
+                  const label = document.createElement('label');
+                  label.htmlFor = `radio-${option}`;
+                  label.textContent = option;
+                  
+                  radioWrapper.appendChild(radio);
+                  radioWrapper.appendChild(label);
+                  inputElement.appendChild(radioWrapper);
+                });
+                break;
+              case 'combobox':
+                inputElement = document.createElement('select');
+                artefact.opcoes_enum.forEach(option => {
+                  const optionElement = document.createElement('option');
+                  optionElement.value = option;
+                  optionElement.textContent = option;
+                  inputElement.appendChild(optionElement);
+                });
+                break;
+              case 'button':
+                inputElement = document.createElement('div');
+                artefact.opcoes_enum.forEach(option => {
+                  const button = document.createElement('button');
+                  button.type = 'button';
+                  button.value = option;
+                  button.textContent = option;
+                  inputElement.appendChild(button);
+
+                  const br = document.createElement('br');
+                  inputElement.appendChild(br);
+                });
+                break;
+            }
+            break;
+        }
+        
+
+        artefactElement.appendChild(inputElement);
+
+        artefactContainer.appendChild(artefactElement);
+      });
+
+      console.log('artefactContainer', artefactContainer);
+
+      const step3Container = this.$refs.tagsContainer;
+      console.log('step3Container', step3Container);
+      if (step3Container) {
+        step3Container.innerHTML = ''; // Clear previous content
+        step3Container.appendChild(artefactContainer);
+      }
+    },
+    async selectTemplate(template) {
+      if (template.disabled) return;
+
+      this.selectedTemplate = template.id;
+      this.templateStep = 3; 
+
+      try {
+        //Pegar os campos do template selecionado
+        const response = await useDirectus(readItems('bo_briefing_artefato',{
+                      filter: { bo_template_pai: { _eq: this.selectedTemplate } },
+                      fields: ['*']
+                  }));
+        this.artefacts = response;
+
+        this.generateArtefactHTML(); // Call the new method to generate HTML
+      } catch (error) {
+        console.error('Erro ao buscar artefatos do template:', error);
+        this.errorMessage = 'Ocorreu um erro ao buscar os artefatos do template. Tente novamente mais tarde.';
       }
     },
     advanceToStep5() {
