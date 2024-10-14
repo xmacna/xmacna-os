@@ -62,6 +62,8 @@ import type {
 	OsTaxRate,
 } from './os';
 
+import type { cliente } from './cliente/cliente.js';
+
 /** Directus Schema for SDK */
 export interface Schema {
 	// Routes
@@ -148,4 +150,7 @@ export interface Schema {
 	// System
 	directus_files: File[];
 	directus_users: User[];
+
+	//Cliente
+	bo_Cliente: cliente[];
 }

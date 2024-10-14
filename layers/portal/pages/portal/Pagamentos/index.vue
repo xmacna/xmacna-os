@@ -4,29 +4,52 @@
     <h1>Select Quantity</h1>
     <div class="quantity-selector">
       <label for="quantity">Quantity:</label>
-      <input
-        id="quantity"
-        type="number"
-        v-model.number="quantity"
-        min="1"
-        class="input"
-      />
-    </div>
-    <p class="total">Total: R$ {{ total }}</p>
-    <UButton @click="handleNext" class="next-button">Next</UButton>
+			<input
+				id="quantity"
+				type="number"
+				v-model.number="quantity"
+				min="1"
+				class="input"
+			/>
+		</div>
+		<p class="total">Total: R$ {{ total }}</p>
+		<UButton @click="handleNext" class="next-button">Next</UButton>
 		<AntiforgeryToken></AntiforgeryToken>
-  </div>
-<div v-else>
-	<form id="payment-form">
-	<div id="checkout"></div>
-	<UButton type="submit">Submit Payment</UButton>
-</form>
-</div>
+	</div>
+	<div v-else>
+		<form id="payment-form">
+			<div id="checkout"></div>
+			<UButton type="submit">Submit Payment</UButton>
+		</form>
+	</div>
+	<!-- Success Modal -->
+	<div v-if="successModalVisible" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+		<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center">
+			<UIcon name="check" class="text-green-500 w-12 h-12 mb-4" />
+			<h2 class="text-xl font-semibold mb-4">Pagamento Concluído</h2>
+			<p>Seu pagamento foi processado com sucesso.</p>
+			<UButton @click="closeSuccessModal" class="mt-4">Fechar</UButton>
+		</div>
+	</div>
+
+	<!-- Error Modal -->
+	<div v-if="errorModalVisible" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+		<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg flex flex-col items-center">
+			<!-- Error Icon -->
+			<UIcon name="error" class="text-red-500 w-12 h-12 mb-4" />
+			<h2 class="text-xl font-semibold mb-4">Falha no Pagamento</h2>
+			<p class="mb-4">Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.</p>
+			<UButton @click="closeErrorModal" class="mt-4">Fechar</UButton>
+		</div>
+	</div>
 </template>
 
 <script setup lang="js">
 import { ref, computed } from 'vue';
 import Stripe from 'stripe';
+
+const route = useRoute();
+const customerId = ref(route.query.customerId || '');
 
 // Initialize Stripe with your secret key and specify the API version
 const stripe = new Stripe('sk_test_51Q96u2Em4kLiPlVDstushGxzWzjXUFc0UOAkilXwylK46NISYpQVgxb9VJqazrucXnrtOlADmMvZJpVq6GyUYjZA007lDSBsOu', {
@@ -44,7 +67,7 @@ var handleNext = async () => {
       amount: total.value * 100, // Amount in cents
       currency: 'brl',
       setup_future_usage: 'on_session',
-			customer: 'cus_R1VcYfQgVWVIqM',
+			customer: customerId.value,
       automatic_payment_methods: {
         enabled: true,
       },
@@ -93,20 +116,53 @@ var setupStripe = function (clientSecret) {
 							elements,
 							redirect: "if_required",
 						}).then(function (result) {
+
 							console.log(result);
+
 							if (result.error) {
-								// Show error to your customer (e.g., insufficient funds)
-								console.error(result.error.message);
+								console.log("show payment error modal");
+								// Show error modal with X icon and error message
+								showErrorModal("Payment didn't succeed", result.error.message);
 							} else {
-								// The payment has been processed!
+								// Show success modal with check icon and success message
 								if (result.paymentIntent.status === 'succeeded') {
-									console.log('Payment succeeded!');
+									console.log("show payment success modal");
+									showSuccessModal('Payment Completed', 'Your payment was successfully processed.');
 								}
 							}
 						});
 					});
     		})();
 	};
+
+// Start Generation Here
+const successModalVisible = ref(false);
+const successModalTitle = ref('');
+const successModalMessage = ref('');
+
+const errorModalVisible = ref(false);
+const errorModalTitle = ref('');
+const errorModalMessage = ref('');
+
+const showSuccessModal = (title, message) => {
+	successModalTitle.value = title;
+	successModalMessage.value = message;
+	successModalVisible.value = true;
+};
+
+const showErrorModal = (title, message) => {
+	errorModalTitle.value = title;
+	errorModalMessage.value = message;
+	errorModalVisible.value = true;
+};
+
+const closeSuccessModal = () => {
+	successModalVisible.value = false;
+};
+
+const closeErrorModal = () => {
+	errorModalVisible.value = false;
+};
 </script>
 
 <style scoped>

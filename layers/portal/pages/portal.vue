@@ -34,10 +34,24 @@ const sidebarNavigation = {
 		{ name: 'Projects', href: '/portal/projects', icon: 'material-symbols:tab-group-outline-rounded' },
 		{ name: 'Files', href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
 		{ name: 'Billing', href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
-		{ name: 'Account', href: '/portal/account', icon: 'material-symbols:account-circle-outline' },
-		{ name: 'Pagamentos', href: '/portal/pagamentos', icon: 'material-symbols:attach-money-rounded' },
+		{
+			name: 'Account',
+			href: '/portal/finalizarCadastro',
+			icon: 'material-symbols:account-circle-outline',
+		},
+		{
+			name: '+ Cliente',
+			href: '/portal/pagamentos/criarclientestripe/clientes',
+			icon: 'material-symbols:person-add-outline',
+		},
 	],
-	bottom: [{ name: 'Help', href: '/portal/help', icon: 'material-symbols:help-outline-rounded' }],
+	bottom: [
+		{
+			name: 'Help',
+			href: '/portal/help',
+			icon: 'material-symbols:help-outline-rounded',
+		},
+	],
 };
 
 const userNavigation = [

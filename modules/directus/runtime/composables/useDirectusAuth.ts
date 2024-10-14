@@ -18,13 +18,17 @@ export default function useDirectusAuth<DirectusSchema extends object>() {
 		set: (value: boolean) => process.client && localStorage.setItem('authenticated', value.toString()),
 	};
 
-	async function login(email: string, password: string, otp?: string) {
+	async function login(email: string, password: string, otp?: boolean) {
 		const route = useRoute();
 
 		const response = await $directus.login(email, password);
 
 		const returnPath = route.query.redirect?.toString();
-		const redirect = returnPath ? returnPath : '/portal';
+		let redirect = returnPath ? returnPath : '/portal';
+
+		if (otp) {
+			redirect = '/portal/finalizarcadastro';
+		}
 
 		_loggedIn.set(true);
 
