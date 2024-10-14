@@ -1,0 +1,70 @@
+name: Azure Static Web Apps CI/CD
+
+on:
+  push:
+    branches:
+      - xmacna-prod
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - xmacna-prod
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - webhook
+
+jobs:
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    env:
+      DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+      DIRECTUS_SERVER_TOKEN: ${{ secrets.DIRECTUS_SERVER_TOKEN }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      NO_NUXT_PUBLIC_SITE_URL: ${{ secrets.NUXT_PUBLIC_SITE_URL }}
+      COREPACK_ENABLE_STRICT: '0'
+      VERBOSE: true
+      PNPM_VERSION: 8.6.0
+      NODE_VERSION: 18.19.0
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Deploy
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_TREE_026B9B70F }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: 'upload'
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          skip_api_build: true
+          app_location: '/'
+          api_location: '.output/server'
+          output_location: '.output/public'
+          ###### End of Repository/Build Configurations ######
+        env:
+          PRE_BUILD_COMMAND: npm install pnpm@${{ env.PNPM_VERSION }} -g && pnpm install --no-frozen-lockfile
+          CUSTOM_BUILD_COMMAND: pnpm run build --preset=azure
+          skip_deploy_on_missing_secrets: true
+          VERBOSE: true
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_TREE_026B9B70F }}
+          action: 'close'

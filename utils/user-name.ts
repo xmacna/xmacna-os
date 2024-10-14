@@ -2,7 +2,7 @@ import type { User } from '~~/types';
 
 export function userName(user: Partial<User>): string {
 	if (!user) {
-		return 'Unknown User' as string;
+		return 'Usuário Desconhecido' as string;
 	}
 
 	if (user.first_name && user.last_name) {
@@ -17,5 +17,5 @@ export function userName(user: Partial<User>): string {
 		return user.email;
 	}
 
-	return 'Unknown User' as string;
+	return 'Usuário Desconhecido' as string;
 }

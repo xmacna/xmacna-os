@@ -94,8 +94,8 @@ const { data: form } = await useAsyncData(
 				</div>
 
 				<div v-if="form" class="relative">
-					<TypographyHeadline :content="`<p>Subscribe to our <em>newsletter</em></p>`" size="sm">
-						Subscribe to our newsletter
+					<TypographyHeadline :content="`<p>Receba nossas <em>novidades</em></p>`" size="sm">
+						Receba nossas novidades
 					</TypographyHeadline>
 					<UForm class="mt-4 mb-8" :form="form" />
 				</div>

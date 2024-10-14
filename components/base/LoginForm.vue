@@ -4,7 +4,7 @@
 			v-if="error"
 			type="error"
 			class="mb-4"
-			title="Oops! Something went wrong."
+			title="Oops! Algo deu errado."
 			:description="error"
 			color="rose"
 			variant="outline"
@@ -19,19 +19,19 @@
 					:disabled="loading"
 					size="lg"
 					name="email"
-					label="Work Email"
-					placeholder="john@example.com"
+					label="Email de Trabalho"
+					placeholder="voce@suaempresa.com.br"
 				/>
 			</UFormGroup>
-			<UFormGroup label="Password" required>
+			<UFormGroup label="Senha" required>
 				<UInput
 					v-model="credentials.password"
 					type="password"
 					:disabled="loading"
 					size="lg"
 					name="password"
-					label="Password"
-					placeholder="Your Password"
+					label="Senha"
+					placeholder="Sua Senha"
 				/>
 			</UFormGroup>
 			<UButton
@@ -39,7 +39,7 @@
 				:loading="loading"
 				:disabled="!credentials.email"
 				size="lg"
-				label="Sign In"
+				label="Login"
 				trailing-icon="material-symbols:arrow-forward"
 				block
 			/>
@@ -65,7 +65,7 @@ const error = ref(null);
 
 // You'll want to remove these preset credentials before you deploy your site
 const credentials = reactive({
-	email: 'ashley@example.com',
+	email: 'voce@suaempresa.com.br',
 	password: 'password',
 });
 

@@ -19,24 +19,24 @@ const feedback = reactive<HelpFeedback>({
 
 const ratingOptions = [
 	{
-		label: 'The Worst 😭',
+		label: 'O Pior 😭',
 		value: 1,
-		message: 'Sorry about that. How do we fix it?',
+		message: 'Desculpe por isso. Como podemos corrigir?',
 	},
 	{
-		label: 'Not Helpful 😡',
+		label: 'Não foi útil 😡',
 		value: 2,
-		message: 'How can we improve this article?',
+		message: 'Como podemos melhorar este artigo?',
 	},
 	{
-		label: 'Helpful 😃',
+		label: 'Útil 😃',
 		value: 3,
-		message: 'Nice! 👍 Anything we can improve upon?',
+		message: 'Que bom! 👍 Há algo em que podemos melhorar?',
 	},
 	{
-		label: 'Amazing 🤩',
+		label: 'Incrível 🤩',
 		value: 4,
-		message: `Awesome! 🥳🎉🎊 Anything you'd like to add?`,
+		message: `Fantástico! 🥳🎉🎊 Há algo que você gostaria de adicionar?`,
 	},
 ];
 
@@ -84,7 +84,7 @@ async function handleSubmission(rating?: number) {
 		<Transition name="fade" mode="out-in">
 			<!-- Ask For Rating -->
 			<div v-if="!feedback.rating" class="step">
-				<TypographyHeadline content="How <em>helpful</em> was this article?" size="xs" />
+				<TypographyHeadline content="<em>Gostou</em> desse artigo?" size="xs" />
 				<div class="flex flex-col gap-3 mt-4 md:flex-row">
 					<UButton
 						v-for="item in ratingOptions"
@@ -99,7 +99,7 @@ async function handleSubmission(rating?: number) {
 			</div>
 			<!-- Ask For Comments -->
 			<div v-else-if="feedback?.rating && !success" class="space-y-4">
-				<p class="dark:text-gray-200">You chose:</p>
+				<p class="dark:text-gray-200">Você escolheu:</p>
 				<div class="space-x-4">
 					<span class="text-xl font-bold dark:text-white">
 						{{ getRatingOption(feedback.rating)?.label }}
@@ -114,11 +114,11 @@ async function handleSubmission(rating?: number) {
 				/>
 				<!-- @vue-ignore - UTextArea component from NuxtUI is missing proper types -->
 				<UTextarea v-model="feedback.comments" autofocus class="max-w-lg" autoresize />
-				<UButton :disabled="!feedback.comments" size="lg" @click="handleSubmission()">Send Us Your Feedback</UButton>
+				<UButton :disabled="!feedback.comments" size="lg" @click="handleSubmission()">Envie seu feedback</UButton>
 			</div>
 			<!-- Success State -->
 			<div v-else>
-				<TypographyHeadline content="Thanks for your feedback!" size="sm" />
+				<TypographyHeadline content="Obrigado pelo feedback!" size="sm" />
 			</div>
 		</Transition>
 	</div>

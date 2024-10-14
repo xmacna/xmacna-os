@@ -48,7 +48,7 @@ const {
 						<p>{{ collection?.description }}</p>
 					</div>
 				</div>
-				<div class="mt-5 text-gray-500">{{ collection?.articles.length }} articles</div>
+				<div class="mt-5 text-gray-500">{{ collection?.articles.length }} artigos</div>
 			</div>
 			<div class="flex flex-col gap-5 p-2 border-2 dark:border-gray-600 rounded-card">
 				<NuxtLink
