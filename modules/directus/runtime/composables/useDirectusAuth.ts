@@ -27,7 +27,7 @@ export default function useDirectusAuth<DirectusSchema extends object>() {
 		let redirect = returnPath ? returnPath : '/portal';
 
 		if (otp) {
-			redirect = '/portal/finalizarcadastro';
+			redirect = '/portal/account';
 		}
 
 		_loggedIn.set(true);

@@ -1,3 +1,4 @@
+import type { assinatura } from '../bo/assinatura';
 import type { User } from '../system';
 
 export interface cliente {
@@ -13,4 +14,5 @@ export interface cliente {
 	user?: string | User | null;
 	user_created?: string | User | null;
 	user_updated?: string | User | null;
+	assinatura?: string | assinatura | null;
 }

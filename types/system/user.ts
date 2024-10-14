@@ -53,4 +53,5 @@ export interface User {
 	company_info: string;
 	preferences_divider: string;
 	admin_divider: string;
+	stripe_customer_id?: string | null;
 }

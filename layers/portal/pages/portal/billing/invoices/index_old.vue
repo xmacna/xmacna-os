@@ -166,7 +166,7 @@ function clearFilters() {
 					variant="outline"
 					size="xl"
 					:loading="stripeLoading"
-					@click="getPortalLink('cus_OlTbJKVanSb1zN')"
+					@click="getPortalLink('cus_R1f2UIiGyaxV4W')"
 				>
 					Update Payment Settings
 				</UButton>

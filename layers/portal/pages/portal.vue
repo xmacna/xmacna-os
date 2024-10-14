@@ -33,17 +33,19 @@ const sidebarNavigation = {
 		{ name: 'Dashboard', href: '/portal', icon: 'material-symbols:home-outline-rounded' },
 		{ name: 'Projects', href: '/portal/projects', icon: 'material-symbols:tab-group-outline-rounded' },
 		{ name: 'Files', href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
-		{ name: 'Billing', href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
+		{ name: 'Pagamentos', href: '/portal/historicopagamentos', icon: 'material-symbols:attach-money-rounded' },
+		{ name: 'Planos', href: '/portal/planos', icon: 'material-symbols:subscriptions-outline' },
+		{ name: 'Assinaturas', href: '/portal/assinaturas', icon: 'material-symbols:beenhere' },
 		{
 			name: 'Account',
-			href: '/portal/finalizarCadastro',
+			href: '/portal/account',
 			icon: 'material-symbols:account-circle-outline',
 		},
-		{
-			name: '+ Cliente',
-			href: '/portal/pagamentos/criarclientestripe/clientes',
-			icon: 'material-symbols:person-add-outline',
-		},
+		// {
+		// 	name: '+ Cliente',
+		// 	href: '/portal/pagamentos/criarclientestripe/clientes',
+		// 	icon: 'material-symbols:person-add-outline',
+		// },
 	],
 	bottom: [
 		{
